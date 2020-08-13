@@ -84,10 +84,7 @@ describe("CRU Operations", () => {
   it("should return an error while trying to insert an existing document", async () => {
     await model.create(aNewMessageStatus).run();
     await model
-      .create({
-        ...aNewMessageStatus,
-        version: 0 as NonNegativeInteger
-      })
+      .create(aNewMessageStatus)
       .fold(
         error => {
           expect(error.kind).toEqual("COSMOS_ERROR_RESPONSE");

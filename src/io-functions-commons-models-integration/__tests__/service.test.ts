@@ -105,10 +105,7 @@ describe("CRU Operations", () => {
     await model
       .create(aNewService)
       .chain(() =>
-        model.create({
-          ...aNewService,
-          version: 0 as NonNegativeInteger
-        })
+        model.create(aNewService)
       )
       .fold(
         error => {

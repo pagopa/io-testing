@@ -79,10 +79,7 @@ describe("CRU Operations", () => {
   it("should return a 409 error while trying to insert an existing document", async () => {
     await model.create(aNewProfile).run();
     await model
-      .create({
-        ...aNewProfile,
-        version: 0 as NonNegativeInteger
-      })
+      .create(aNewProfile)
       .fold(
         error => {
           expect(error.kind).toEqual("COSMOS_ERROR_RESPONSE");

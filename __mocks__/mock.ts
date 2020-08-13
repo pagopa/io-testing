@@ -17,10 +17,12 @@ import {
 import { NewMessageStatus } from "io-functions-commons/dist/src/models/message_status";
 import {
   NewNotification,
+  Notification,
   NotificationAddressSourceEnum
 } from "io-functions-commons/dist/src/models/notification";
 import {
   NewNotificationStatus,
+  NotificationStatus,
   NotificationStatusId
 } from "io-functions-commons/dist/src/models/notification_status";
 import {
@@ -38,7 +40,8 @@ import {
 import {
   makeUserDataProcessingId,
   NewUserDataProcessing,
-  RetrievedUserDataProcessing
+  RetrievedUserDataProcessing,
+  UserDataProcessingId
 } from "io-functions-commons/dist/src/models/user_data_processing";
 import { VisibleService } from "io-functions-commons/dist/src/models/visible_service";
 import { NonNegativeInteger } from "italia-ts-commons/lib/numbers";
@@ -61,7 +64,7 @@ export const retrievedMetadata = {
 
 export const aUserDataProcessingChoice = UserDataProcessingChoiceEnum.DOWNLOAD;
 export const aUserDataProcessingStatus = UserDataProcessingStatusEnum.PENDING;
-export const aUserDataProcessingId = makeUserDataProcessingId(
+export const aUserDataProcessingId: UserDataProcessingId = makeUserDataProcessingId(
   aUserDataProcessingChoice,
   aFiscalCode
 );
@@ -88,9 +91,9 @@ export const aRetrievedUserDataProcessing: RetrievedUserDataProcessing = {
   version: 0 as NonNegativeInteger
 };
 
-export const aNotificationStatusId = "A_NOTIFICATION_ID:EMAIL" as NotificationStatusId;
+export const aNotificationStatusId: NotificationStatusId = "A_NOTIFICATION_ID:EMAIL" as NotificationStatusId;
 export const aNotificationId = "A_NOTIFICATION_ID" as NonEmptyString;
-export const aSerializedNotificationStatus = {
+export const aSerializedNotificationStatus: NotificationStatus = {
   channel: NotificationChannelEnum.EMAIL,
   messageId: "A_MESSAGE_ID" as NonEmptyString,
   notificationId: aNotificationId,
@@ -107,7 +110,7 @@ export const aNewNotificationStatus: NewNotificationStatus = {
 export const aMessageId = "A_MESSAGE_ID" as NonEmptyString;
 export const anotherMessageId = "ANOTHER_MESSAGE_ID" as NonEmptyString;
 
-export const aNotification = {
+export const aNotification: Notification = {
   channels: {
     [NotificationChannelEnum.EMAIL]: {
       addressSource: NotificationAddressSourceEnum.DEFAULT_ADDRESS,
@@ -238,7 +241,9 @@ export const anotherRetrievedMessage: RetrievedMessageWithoutContent = {
   kind: "IRetrievedMessageWithoutContent"
 };
 
-export const aMessageBodyMarkdown = "test".repeat(80) as MessageBodyMarkdown;
+export const aMessageBodyMarkdown: MessageBodyMarkdown = "test".repeat(
+  80
+) as MessageBodyMarkdown;
 
 export const aMessageContent: MessageContent = {
   markdown: aMessageBodyMarkdown,

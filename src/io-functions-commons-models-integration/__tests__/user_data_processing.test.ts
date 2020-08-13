@@ -97,8 +97,7 @@ describe("CRU Operations", () => {
     await model
       .create({
         ...aNewUserDataProcessing,
-        userDataProcessingId: aUserDataProcessingId,
-        version: 0 as NonNegativeInteger
+        userDataProcessingId: aUserDataProcessingId
       })
       .fold(
         error => {
