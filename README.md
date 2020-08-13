@@ -6,7 +6,7 @@ This is a project containing some test suites for IO (Backend and Functions). In
 In order to run tests correctly (in a local environment) you must:
 
  - set your environment variables by copying `env.example` in `.env` ( see `env.example` for required variables ) and fill them with proper values
- - run io-mock ( please refers to [https://github.com/pagopa/io-mock](https://github.com/pagopa/io-mock) )
+ - run io-mock ( please refer to [https://github.com/pagopa/io-mock](https://github.com/pagopa/io-mock) )
  - run `yarn install`
  - run `yarn generate`
  - run `yarn start` or `yarn test`
