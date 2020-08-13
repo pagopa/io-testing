@@ -1,13 +1,9 @@
-import { isLeft } from "fp-ts/lib/Either";
 import { isNone } from "fp-ts/lib/Option";
 import {
-  NewProfile,
-  Profile,
   PROFILE_COLLECTION_NAME,
   PROFILE_MODEL_PK_FIELD,
   ProfileModel
 } from "io-functions-commons/dist/src/models/profile";
-import { incVersion } from "io-functions-commons/dist/src/utils/cosmosdb_model_versioned";
 import { NonNegativeInteger } from "italia-ts-commons/lib/numbers";
 import { EmailString } from "italia-ts-commons/lib/strings";
 import { aNewProfile, aProfile } from "../../../__mocks__/mock";

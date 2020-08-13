@@ -137,6 +137,7 @@ export const aProfile: Profile = {
 
 export const aNewProfile: NewProfile = {
   ...aProfile,
+  isEmailValidated: false,
   kind: "INewProfile"
 };
 
@@ -144,6 +145,7 @@ export const aRetrievedProfile: RetrievedProfile = {
   ...aProfile,
   ...retrievedMetadata,
   id: `${aFiscalCode}-0000000000000000` as NonEmptyString,
+  isEmailValidated: false,
   kind: "IRetrievedProfile",
   version: 0 as NonNegativeInteger
 };

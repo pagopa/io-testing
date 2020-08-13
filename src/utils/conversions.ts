@@ -16,6 +16,7 @@ import { UserDataProcessing } from "io-functions-commons/dist/generated/definiti
 import { RetrievedUserDataProcessing } from "io-functions-commons/dist/src/models/user_data_processing";
 import { withoutUndefinedValues } from "italia-ts-commons/lib/types";
 import { NewProfile as NewProfileApi } from "../../generated/io-fn-app/NewProfile";
+import { Profile as ProfileApi } from "../../generated/io-fn-app/Profile";
 
 export function retrievedProfileToExtendedProfile(
   profile: RetrievedProfile
@@ -92,6 +93,19 @@ export function profileToNewProfileApi(newProfile: NewProfile): NewProfileApi {
     email: newProfile.email,
     is_email_validated: true,
     is_test_profile: newProfile.isTestProfile
+  };
+}
+
+export function retrievedProfileToProfileApi(
+  retrievedProfile: RetrievedProfile
+): ProfileApi {
+  return {
+    accepted_tos_version: retrievedProfile.acceptedTosVersion,
+    blocked_inbox_or_channels: retrievedProfile.blockedInboxOrChannels,
+    email: retrievedProfile.email,
+    is_email_enabled: retrievedProfile.isEmailEnabled,
+    is_inbox_enabled: retrievedProfile.isInboxEnabled,
+    version: retrievedProfile.version
   };
 }
 

@@ -1,4 +1,3 @@
-import { isLeft } from "fp-ts/lib/Either";
 import { isNone } from "fp-ts/lib/Option";
 import { MessageStatusValueEnum } from "io-functions-commons/dist/generated/definitions/MessageStatusValue";
 import {
@@ -6,7 +5,6 @@ import {
   MESSAGE_STATUS_MODEL_ID_FIELD,
   MessageStatusModel
 } from "io-functions-commons/dist/src/models/message_status";
-import { incVersion } from "io-functions-commons/dist/src/utils/cosmosdb_model_versioned";
 import { NonNegativeInteger } from "italia-ts-commons/lib/numbers";
 import {
   aNewMessageStatus,

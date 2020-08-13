@@ -1,11 +1,9 @@
-import { isLeft } from "fp-ts/lib/Either";
 import { isNone } from "fp-ts/lib/Option";
 import {
   SERVICE_COLLECTION_NAME,
   SERVICE_MODEL_PK_FIELD,
   ServiceModel
 } from "io-functions-commons/dist/src/models/service";
-import { incVersion } from "io-functions-commons/dist/src/utils/cosmosdb_model_versioned";
 import { NonNegativeInteger } from "italia-ts-commons/lib/numbers";
 import { NonEmptyString } from "italia-ts-commons/lib/strings";
 import {
