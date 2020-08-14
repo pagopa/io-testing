@@ -20,7 +20,7 @@ import {
   mailHogPort,
   mailHogSearchApiEndpoint
 } from "../../../utils/api-props";
-import { clearAllTestData } from "../../../utils/clear_data";
+import { clearAllTestData, clearEmails } from "../../../utils/clear_data";
 import {
   retrievedProfileToExtendedProfile,
   retrievedProfileToProfileApi,
@@ -38,6 +38,8 @@ const getProfileEndpoint = `${ioFunctionsAppHost}${ioFunctionsAppBasePath}/profi
 const anUpdatedEmail = "updated-email@mail.it" as EmailString;
 const mailSearchEndpoint = `${mailHogHost}:${mailHogPort}/${mailHogSearchApiEndpoint}/?kind=to;`;
 
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 afterEach(async () => {
   await clearAllTestData(
     container,
@@ -45,6 +47,7 @@ afterEach(async () => {
     aProfile,
     PROFILE_MODEL_PK_FIELD
   ).run();
+  await clearEmails().run();
 });
 
 describe("UpdateProfile", () => {
@@ -97,6 +100,8 @@ describe("UpdateProfile", () => {
           )
       )
       .run();
+    // wait for orchestrator to call send mail activity
+    await delay(2000);
     await fetchFromApi(`${mailSearchEndpoint}query=${anUpdatedEmail}`, {})
       .fold(
         _ => fail(failRightPath),
