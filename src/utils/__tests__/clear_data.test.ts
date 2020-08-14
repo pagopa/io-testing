@@ -54,7 +54,7 @@ jest
     Promise.resolve([right(aModel), right(anotherModel)])
   );
 describe("Clear Data", () => {
-  it("should clear object data from an arbitrary collection", async () => {
+  it("should clear object data from an arbitrary collection on cosmos", async () => {
     await clearAllTestData(
       containerMock as any,
       modelMock,
