@@ -42,7 +42,8 @@
     "io-functions-commons": "13.0.0",
     "italia-ts-commons": "^8.5.0",
     "italia-utils": "^4.1.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "https": "^1.0.0"
   },
   "resolutions": {
     "handlebars": "~4.5.3",
