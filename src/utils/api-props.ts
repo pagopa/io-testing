@@ -15,9 +15,13 @@ export const mailHogHost: NonEmptyString = tryCatch(() =>
 ).getOrElse(process.env.MAILHOG_HOST as NonEmptyString);
 
 export const mailHogSearchApiEndpoint: NonEmptyString = tryCatch(() =>
-  getRequiredStringEnv("MAILHOG_API_ENDPOINT")
-).getOrElse(process.env.MAIL_HOG_API_ENDPOINT as NonEmptyString);
+  getRequiredStringEnv("MAILHOG_APIV2_SEARCH_ENDPOINT")
+).getOrElse(process.env.MAILHOG_APIV2_SEARCH_ENDPOINT as NonEmptyString);
 
 export const mailHogPort: NonEmptyString = tryCatch(() =>
   getRequiredStringEnv("MAILHOG_PORT")
 ).getOrElse(process.env.MAILHOG_PORT as NonEmptyString);
+
+export const mailHogApiV1Endpoint: NonEmptyString = tryCatch(() =>
+  getRequiredStringEnv("MAILHOG_APIV1_ENDPOINT")
+).getOrElse(process.env.MAILHOG_APIV1_ENDPOINT as NonEmptyString);
