@@ -15,7 +15,10 @@ import {
 } from "../../../../__mocks__/mock";
 import {
   ioFunctionsAppBasePath,
-  ioFunctionsAppHost
+  ioFunctionsAppHost,
+  mailHogHost,
+  mailHogPort,
+  mailHogSearchApiEndpoint
 } from "../../../utils/api-props";
 import { clearAllTestData } from "../../../utils/clear_data";
 import {
@@ -33,6 +36,7 @@ const failRightPath = "Result must be a right path";
 
 const getProfileEndpoint = `${ioFunctionsAppHost}${ioFunctionsAppBasePath}/profiles/`;
 const anUpdatedEmail = "updated-email@mail.it" as EmailString;
+const mailSearchEndpoint = `${mailHogHost}:${mailHogPort}/${mailHogSearchApiEndpoint}/?kind=to;`;
 
 afterEach(async () => {
   await clearAllTestData(
@@ -91,6 +95,15 @@ describe("UpdateProfile", () => {
                 })
               )
           )
+      )
+      .run();
+    await fetchFromApi(`${mailSearchEndpoint}query=${anUpdatedEmail}`, {})
+      .fold(
+        _ => fail(failRightPath),
+        res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.count).toBeGreaterThan(0);
+        }
       )
       .run();
   });
