@@ -10,9 +10,8 @@ export const ioFunctionsAppBasePath: NonEmptyString = tryCatch(() =>
   getRequiredStringEnv("IO_FUNCTIONS_APP_BASE_PATH")
 ).getOrElse(process.env.IO_FUNCTIONS_APP_BASE_PATH as NonEmptyString);
 
-export const mailHogHost: NonEmptyString = tryCatch(() =>
-  getRequiredStringEnv("MAILHOG_HOST")
-).getOrElse(process.env.MAILHOG_HOST as NonEmptyString);
+export const mailHogHost: NonEmptyString = 
+  getRequiredStringEnv("MAILHOG_HOST");
 
 export const mailHogSearchApiEndpoint: NonEmptyString = tryCatch(() =>
   getRequiredStringEnv("MAILHOG_APIV2_SEARCH_ENDPOINT")
