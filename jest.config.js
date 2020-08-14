@@ -1,6 +1,6 @@
 module.exports = {
-    preset: "ts-jest",
-    testPathIgnorePatterns: ["dist", "/node_modules"],
-    globalSetup: "./setup/index.ts",
-    testTimeout: 10000
-  };
+  preset: "ts-jest",
+  testPathIgnorePatterns: ["dist", "/node_modules"],
+  setupFiles: ["dotenv/config"],
+  testTimeout: 10000
+};

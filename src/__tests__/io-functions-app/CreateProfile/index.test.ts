@@ -13,7 +13,7 @@ import {
 import {
   ioFunctionsAppBasePath,
   ioFunctionsAppHost
-} from "../../../utils/api-props";
+} from "../../../utils/api_props";
 import { clearAllTestData } from "../../../utils/clear_data";
 import {
   profileToNewProfileApi,

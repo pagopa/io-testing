@@ -19,7 +19,7 @@ import {
   mailHogHost,
   mailHogPort,
   mailHogSearchApiEndpoint
-} from "../../../utils/api-props";
+} from "../../../utils/api_props";
 import { clearAllTestData, clearEmails } from "../../../utils/clear_data";
 import {
   retrievedProfileToExtendedProfile,
