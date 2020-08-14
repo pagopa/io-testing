@@ -1,9 +1,9 @@
 {
   "name": "io-testing",
   "version": "0.0.1",
-  "description": "TODO",
+  "description": "IO integration tests",
   "repository": "https://github.com/pagopa/io-testing",
-  "author": "https://teamdigitale.governo.it",
+  "author": "https://pagopa.gov.it",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -11,7 +11,7 @@
     "postversion": "git push && git push --tags",
     "test": "jest --runInBand",
     "lint": "tslint --project .",
-    "start": "dotenv -e .env -- jest --runInBand",
+    "start": "npm-run-all test",
     "generate": "npm-run-all generate:api:*",
     "generate:api:io-functions-app": "rimraf generated/io-fn-app && mkdir -p generated/io-fn-app && gen-api-models --api-spec https://raw.githubusercontent.com/pagopa/io-functions-app/master/openapi/index.yaml --no-strict --out-dir generated/io-fn-app --request-types --response-decoders"
   },
@@ -29,12 +29,12 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.10.1",
     "tslint": "^5.17.0",
-    "typescript": "^3.6.2"
+    "typescript": "^3.9.0"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
     "dotenv-cli": "^3.2.0",
-    "fp-ts": "1.17.0",
+    "fp-ts": "1.17.4",
     "io-ts": "1.8.5",
     "@azure/cosmos": "^3.7.4",
     "@azure/storage-queue": "^12.0.0",
@@ -46,21 +46,6 @@
   },
   "resolutions": {
     "handlebars": "~4.5.3",
-    "fp-ts": "1.17.0"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverage": true,
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx",
-      "node",
-      "ts",
-      "tsx"
-    ],
-    "preset": "ts-jest",
-    "testMatch": null
+    "fp-ts": "1.17.4"
   }
 }

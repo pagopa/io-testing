@@ -9,7 +9,7 @@ import {
   tGetBlobAsObject
 } from "../../../utils/azure_storage";
 import { clearAllBlobData } from "../../../utils/clear_data";
-import { base64EncodeObject } from "../../../utils/encode_util";
+import { base64EncodeObject } from "../../../utils/encode";
 import { SpidMsgItem } from "../../../utils/types";
 
 const failRightPath = "Result must be a right path";

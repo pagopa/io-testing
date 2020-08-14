@@ -8,16 +8,17 @@ import { retrievedMessageToPublic } from "io-functions-commons/dist/src/utils/me
 import { NonEmptyString } from "italia-ts-commons/lib/strings";
 import {
   aFiscalCode,
-  aMessageContent,
-  aMessageId,
   aNewMessageWithoutContent,
+  anotherFiscalCode,
+  anotherNewMessageWithoutContent,
+  anotherRetrievedMessage,
   aRetrievedMessage,
   aSerializedNewMessageWithoutContent
 } from "../../../../__mocks__/mock";
 import {
   ioFunctionsAppBasePath,
   ioFunctionsAppHost
-} from "../../../utils/api-props";
+} from "../../../utils/api_props";
 import { blobService } from "../../../utils/azure_storage";
 import { clearAllBlobData, clearAllTestData } from "../../../utils/clear_data";
 import { database } from "../../../utils/cosmosdb";
@@ -28,6 +29,7 @@ const container = database.container(MESSAGE_COLLECTION_NAME);
 const model = new MessageModel(container, MESSAGE_CONTAINER_NAME);
 
 const failRightPath = "Result must be a right path";
+
 const getMessageEndpoint = `${ioFunctionsAppHost}${ioFunctionsAppBasePath}/messages/`;
 afterEach(async () => {
   await clearAllTestData(
@@ -35,62 +37,53 @@ afterEach(async () => {
     model,
     aSerializedNewMessageWithoutContent,
     MESSAGE_MODEL_PK_FIELD
-  )
-    .foldTaskEither(
-      err => fail(`Cannot delete test data|${toError(err).message}`),
-      () =>
-        clearAllBlobData(
-          blobService,
-          MESSAGE_CONTAINER_NAME,
-          `${aSerializedNewMessageWithoutContent.id}.json`
-        )
-    )
-    .run();
+  ).run();
+  await clearAllBlobData(
+    blobService,
+    MESSAGE_CONTAINER_NAME,
+    `${aSerializedNewMessageWithoutContent.id}.json`
+  ).run();
 });
 
-describe("GetMessage", () => {
-  it("should get an existing Message", async () => {
+describe("GetMessages", () => {
+  it("should get a list of existing Messages by providing a fiscalCode", async () => {
     await model
       .create(aNewMessageWithoutContent)
+      .chain(_ => model.create(anotherNewMessageWithoutContent))
       .foldTaskEither(
         err => fail(`${failRightPath}|${toError(err).message}`),
-        () =>
-          model.storeContentAsBlob(
-            blobService,
-            aNewMessageWithoutContent.id,
-            aMessageContent
-          )
-      )
-      .foldTaskEither(
-        err => fail(`${failRightPath}|${toError(err).message}`),
-        () =>
-          fetchFromApi(`${getMessageEndpoint}${aFiscalCode}/${aMessageId}`, {})
+        () => fetchFromApi(`${getMessageEndpoint}${aFiscalCode}`, {})
       )
       .fold(
         _ => fail(failRightPath),
         responseInfo => {
           expect(responseInfo.statusCode).toBe(200);
           expect(responseInfo.body).toMatchObject({
-            message: {
-              ...retrievedMessageToPublic(aRetrievedMessage),
-              created_at: aRetrievedMessage.createdAt.toISOString()
-            }
+            items: [
+              {
+                ...retrievedMessageToPublic(aRetrievedMessage),
+                created_at: aRetrievedMessage.createdAt.toISOString()
+              },
+              {
+                ...retrievedMessageToPublic(anotherRetrievedMessage),
+                created_at: anotherRetrievedMessage.createdAt.toISOString()
+              }
+            ]
           });
         }
       )
       .run();
   });
 
-  it("should return 404 if no message was found", async () => {
-    await fetchFromApi(
-      `${getMessageEndpoint}${aFiscalCode}/A_FAKE_MESSAGE_ID`,
-      {}
-    )
+  it("should return empty items array if no message was found", async () => {
+    await fetchFromApi(`${getMessageEndpoint}${anotherFiscalCode}`, {})
       .fold(
         _ => fail(failRightPath),
         responseInfo => {
-          expect(responseInfo.statusCode).toBe(404);
-          expect(responseInfo.body.title).toEqual("Message not found");
+          expect(responseInfo.statusCode).toBe(200);
+          expect(responseInfo.body).toMatchObject({
+            items: []
+          });
         }
       )
       .run();
