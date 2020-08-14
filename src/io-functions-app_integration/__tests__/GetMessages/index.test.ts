@@ -18,7 +18,7 @@ import {
 import {
   ioFunctionsAppBasePath,
   ioFunctionsAppHost
-} from "../../../utils/api-props";
+} from "../../../utils/api_props";
 import { blobService } from "../../../utils/azure_storage";
 import { clearAllBlobData, clearAllTestData } from "../../../utils/clear_data";
 import { database } from "../../../utils/cosmosdb";

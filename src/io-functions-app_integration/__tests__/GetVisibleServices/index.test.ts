@@ -7,7 +7,7 @@ import { aServiceId, aVisibleService } from "../../../../__mocks__/mock";
 import {
   ioFunctionsAppBasePath,
   ioFunctionsAppHost
-} from "../../../utils/api-props";
+} from "../../../utils/api_props";
 import {
   blobService,
   tUpsertBlobFromObject

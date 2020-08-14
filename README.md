@@ -1,12 +1,13 @@
 # IO - Testing
-This is a project containing some test suites for IO (Backend and Functions). In this repo you can find all integration tests and end-to-end tests, over IO application components.
+
+Integration and end-to-end tests over IO application components (backend and functions)
 
 ## Usage
 
-In order to run tests correctly (in a local environment) you must:
+In order to run tests in a local environment you must:
 
- - set your environment variables by copying `env.example` in `.env` ( see `env.example` for required variables ) and fill them with proper values
- - run io-mock ( please refer to [https://github.com/pagopa/io-mock](https://github.com/pagopa/io-mock) )
- - run `yarn install`
- - run `yarn generate`
- - run `yarn start` or `yarn test`
+1.  copy `env.example` to `.env` and fill variables with proper values
+1.  eventually: run [io-mock](https://github.com/pagopa/io-mock)
+1.  run `yarn install`
+1.  run `yarn generate`
+1.  run `yarn start` or `yarn test`
