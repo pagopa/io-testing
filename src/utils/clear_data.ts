@@ -4,7 +4,7 @@ import { array, rights } from "fp-ts/lib/Array";
 import { fromLeft, taskEither, taskify, tryCatch } from "fp-ts/lib/TaskEither";
 import * as asyncI from "io-functions-commons/dist/src/utils/async";
 import { toCosmosErrorResponse } from "io-functions-commons/dist/src/utils/cosmosdb_model";
-import { mailHogApiV1Endpoint, mailHogHost, mailHogPort } from "./api-props";
+import { mailHogApiV1Endpoint, mailHogHost, mailHogPort } from "./api_props";
 import { fetchFromApi } from "./fetch";
 // tslint:disable: no-any
 
