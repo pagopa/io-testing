@@ -1,4 +1,3 @@
-import { tryCatch } from "fp-ts/lib/Option";
 import { getRequiredStringEnv } from "io-functions-commons/dist/src/utils/env";
 import { NonEmptyString } from "italia-ts-commons/lib/strings";
 
