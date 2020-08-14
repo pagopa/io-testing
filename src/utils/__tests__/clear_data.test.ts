@@ -31,7 +31,7 @@ const modelMock = {
 };
 
 const containerMock = {
-  item: jest.fn((id: string, pk: string) => ({
+  item: jest.fn((id: string, _: string) => ({
     delete: jest.fn(() =>
       Promise.resolve({
         item: {
