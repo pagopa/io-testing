@@ -1,9 +1,11 @@
 import { Container } from "@azure/cosmos";
 import { BlobService } from "azure-storage";
 import { array, rights } from "fp-ts/lib/Array";
-import { taskEither, taskify, tryCatch } from "fp-ts/lib/TaskEither";
+import { fromLeft, taskEither, taskify, tryCatch } from "fp-ts/lib/TaskEither";
 import * as asyncI from "io-functions-commons/dist/src/utils/async";
 import { toCosmosErrorResponse } from "io-functions-commons/dist/src/utils/cosmosdb_model";
+import { mailHogApiV1Endpoint, mailHogHost, mailHogPort } from "./api_props";
+import { fetchFromApi } from "./fetch";
 // tslint:disable: no-any
 
 export const clearAllTestData = (
@@ -45,4 +47,13 @@ export const clearAllBlobData = (
   blob: string
 ) => {
   return taskify(cb => blobService.deleteBlobIfExists(container, blob, cb))();
+};
+
+export const clearEmails = () => {
+  const url = `${mailHogHost}:${mailHogPort}/${mailHogApiV1Endpoint}/messages`;
+  return fetchFromApi(url, { method: "delete" }).chain(res =>
+    res.statusCode === 200
+      ? taskEither.of(res.statusCode)
+      : fromLeft(new Error("Cannot delete emails"))
+  );
 };

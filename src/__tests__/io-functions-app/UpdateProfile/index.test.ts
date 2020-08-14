@@ -15,9 +15,12 @@ import {
 } from "../../../../__mocks__/mock";
 import {
   ioFunctionsAppBasePath,
-  ioFunctionsAppHost
+  ioFunctionsAppHost,
+  mailHogHost,
+  mailHogPort,
+  mailHogSearchApiEndpoint
 } from "../../../utils/api_props";
-import { clearAllTestData } from "../../../utils/clear_data";
+import { clearAllTestData, clearEmails } from "../../../utils/clear_data";
 import {
   retrievedProfileToExtendedProfile,
   retrievedProfileToProfileApi,
@@ -33,6 +36,9 @@ const failRightPath = "Result must be a right path";
 
 const getProfileEndpoint = `${ioFunctionsAppHost}${ioFunctionsAppBasePath}/profiles/`;
 const anUpdatedEmail = "updated-email@mail.it" as EmailString;
+const mailSearchEndpoint = `${mailHogHost}:${mailHogPort}/${mailHogSearchApiEndpoint}/?kind=to;`;
+
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 afterEach(async () => {
   await clearAllTestData(
@@ -41,6 +47,7 @@ afterEach(async () => {
     aProfile,
     PROFILE_MODEL_PK_FIELD
   ).run();
+  await clearEmails().run();
 });
 
 describe("UpdateProfile", () => {
@@ -91,6 +98,17 @@ describe("UpdateProfile", () => {
                 })
               )
           )
+      )
+      .run();
+    // wait for orchestrator to call send mail activity
+    await delay(2000);
+    await fetchFromApi(`${mailSearchEndpoint}query=${anUpdatedEmail}`, {})
+      .fold(
+        _ => fail(failRightPath),
+        res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body.count).toBeGreaterThan(0);
+        }
       )
       .run();
   });
